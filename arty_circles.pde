@@ -1,21 +1,14 @@
-PImage imgBg;
-
 void setup() {
   size(1280, 720, P3D);
   surface.setTitle("Exploring circle art");
   surface.setResizable(false);
   surface.setLocation(100, 100);
   surface.setAlwaysOnTop(true);
-
-  imgBg = loadImage("circles ref.png");
 }
 
 void draw() {
-  background(220,210,202); // light beige background
+  background(247); // light grey
   translate(width/2, height/2);
-
-  // Draw ref image at centre
-  image(imgBg, -height/2, -height/2, height, height);
 
   // Semi-transparent circles. Red stroke, green fill
   fill(#8000ff00);
@@ -41,7 +34,7 @@ void drawCirclePentagon(float n) {
   /* Geometry */
   float circleRadius = c*n;
   float pentagonRadius = 1.0 + k*(0.5*n*(n+1)-1);
-  float theta = A*cos(n*PI) + radians(15.0);
+  float theta = A*cos(n*PI);
 
   circleRadius *= refLen;
   pentagonRadius *= refLen;
