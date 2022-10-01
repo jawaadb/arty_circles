@@ -16,4 +16,15 @@ void draw() {
 
   // Draw ref image at centre
   image(imgBg, -height/2, -height/2, height, height);
+
+  drawCirclePentagon(50, 100);
+}
+
+void drawCirclePentagon(float circleRadius, float pentagonRadius) {
+  pushMatrix();
+  for (int i=0; i<5; i++) {
+    circle(0, -pentagonRadius, circleRadius);
+    rotateZ(360.0 / 5.0 / 180.0 * PI);
+  }
+  popMatrix();
 }
