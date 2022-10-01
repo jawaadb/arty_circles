@@ -1,32 +1,40 @@
+import processing.sound.*;
+
+AudioIn input;
+Amplitude loudness;
+
 void setup() {
   size(1280, 720, P3D);
   surface.setTitle("Exploring circle art");
   surface.setResizable(false);
   surface.setLocation(100, 100);
   surface.setAlwaysOnTop(true);
+
+  
+  input = new AudioIn(this, 0); // Create an Audio input and grab the 1st channel
+  input.start(); // Begin capturing the audio input
+  
+  loudness = new Amplitude(this); // Create a new Amplitude analyzer
+  loudness.input(input); // Patch the input to the volume analyzer
 }
 
 void draw() {
   background(247); // light grey
   translate(width/2, height/2);
 
+  input.amp(1.0); // Adjust the volume of the audio input
+
+  float volume = loudness.analyze(); // // loudness.analyze() return a value between 0 and 1
+  float deltaN = map(volume, 0, 0.5, -0.2, 0.2);
+  
   // Semi-transparent circles. Red stroke, green fill
   fill(#8000ff00);
   noStroke();
 
-  float period = 12.0;
-
-  float t = millis()/1000.0/period;
-
   // Draw 6 pentagon circle sets
   for (int n=1; n<=6; n++) {
-    float t_sub = tau((t - (n-1)/48.0) % period);
-    drawCirclePentagon(n + t_sub);
+    drawCirclePentagon(n + deltaN);
   }
-}
-
-float tau(float t) {
-  return (-cos(2*PI*3*t)+(1-cos(2*PI*5*t)))/3*(1-cos(2*PI*t))*0.125;
 }
 
 void drawCirclePentagon(float n) {
