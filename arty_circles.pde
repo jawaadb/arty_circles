@@ -14,10 +14,19 @@ void draw() {
   fill(#8000ff00);
   noStroke();
 
+  float period = 12.0;
+
+  float t = millis()/1000.0/period;
+
   // Draw 6 pentagon circle sets
   for (int n=1; n<=6; n++) {
-    drawCirclePentagon((float)n);
+    float t_sub = tau((t - (n-1)/48.0) % period);
+    drawCirclePentagon(n + t_sub);
   }
+}
+
+float tau(float t) {
+  return (-cos(2*PI*3*t)+(1-cos(2*PI*5*t)))/3*(1-cos(2*PI*t))*0.125;
 }
 
 void drawCirclePentagon(float n) {
