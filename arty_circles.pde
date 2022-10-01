@@ -8,4 +8,8 @@ void setup() {
 
 void draw() {
   background(220,210,202); // light beige background
+  translate(width/2, height/2);
+
+  // Draw a circle
+  circle(0,0,100);
 }
